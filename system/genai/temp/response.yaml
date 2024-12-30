@@ -1,0 +1,140 @@
+"models":
+- "classname": |-
+    Airport
+  "code": |-
+    class Airport(Base):
+        __tablename__ = 'airport'
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        name = Column(String, nullable=True)
+        city = Column(String, nullable=True)
+        country = Column(String, nullable=True)
+        iata = Column(String(3), nullable=True)
+        icao = Column(String(4), nullable=True)
+        latitude = Column(Float, nullable=True)
+        longitude = Column(Float, nullable=True)
+        altitude = Column(Integer, nullable=True)
+        timezone = Column(String, nullable=True)
+        dst = Column(String, nullable=True)
+        tz_database_timezone = Column(String, nullable=True)
+  "description": |-
+    This table contains information about airports including IATA and ICAO codes, geographic data, and time zones.
+  "name": |-
+    Airport
+- "classname": |-
+    Flight
+  "code": |-
+    class Flight(Base):
+        __tablename__ = 'flight'
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        flight_number = Column(String, nullable=True)
+        airline_id = Column(Integer, ForeignKey('airline.id'))
+        origin_airport_id = Column(Integer, ForeignKey('airport.id'))
+        destination_airport_id = Column(Integer, ForeignKey('airport.id'))
+        departure_time = Column(DateTime, nullable=True)
+        arrival_time = Column(DateTime, nullable=True)
+  "description": |-
+    This table registers flight information including airlines, origin, destination, and schedule.
+  "name": |-
+    Flight
+- "classname": |-
+    Airline
+  "code": |-
+    class Airline(Base):
+        __tablename__ = 'airline'
+        id = Column(Integer, primary_key=True, autoincrement=True)
+        name = Column(String, nullable=True)
+        iata = Column(String(2), nullable=True)
+        icao = Column(String(3), nullable=True)
+        country = Column(String, nullable=True)
+  "description": |-
+    This table stores different airlines with their respective IATA and ICAO codes, and country.
+  "name": |-
+    Airline
+"name": |-
+  AirportDatabase
+"rules": []
+"test_data": |-
+  # Testing data for Airport
+  airport1 = Airport(name="Los Angeles International", city="Los Angeles", country="USA", iata="LAX", icao="KLAX", latitude=33.942791, longitude=-118.410042, altitude=125, timezone="-8:00", dst="U", tz_database_timezone="America/Los_Angeles")
+  airport2 = Airport(name="Heathrow", city="London", country="UK", iata="LHR", icao="EGLL", latitude=51.4706, longitude=-0.461941, altitude=83, timezone="0:00", dst="E", tz_database_timezone="Europe/London")
+  airport3 = Airport(name="Tokyo International", city="Tokyo", country="Japan", iata="HND", icao="RJTT", latitude=35.549393, longitude=139.779839, altitude=13, timezone="9:00", dst="N", tz_database_timezone="Asia/Tokyo")
+  airport4 = Airport(name="Charles de Gaulle", city="Paris", country="France", iata="CDG", icao="LFPG", latitude=49.0097, longitude=2.5479, altitude=392, timezone="1:00", dst="E", tz_database_timezone="Europe/Paris")
+
+  # Testing data for Airline
+  airline1 = Airline(name="American Airlines", iata="AA", icao="AAL", country="USA")
+  airline2 = Airline(name="British Airways", iata="BA", icao="BAW", country="UK")
+  airline3 = Airline(name="Japan Airlines", iata="JL", icao="JAL", country="Japan")
+  airline4 = Airline(name="Air France", iata="AF", icao="AFR", country="France")
+
+  # Testing data for Flight
+  flight1 = Flight(flight_number="AA100", airline_id=1, origin_airport_id=1, destination_airport_id=2, departure_time=datetime(2023, 10, 5, 12, 0), arrival_time=datetime(2023, 10, 5, 22, 0))
+  flight2 = Flight(flight_number="BA200", airline_id=2, origin_airport_id=2, destination_airport_id=3, departure_time=datetime(2023, 10, 6, 14, 0), arrival_time=datetime(2023, 10, 6, 20, 0))
+  flight3 = Flight(flight_number="JL300", airline_id=3, origin_airport_id=3, destination_airport_id=4, departure_time=datetime(2023, 10, 7, 10, 0), arrival_time=datetime(2023, 10, 7, 18, 0))
+  flight4 = Flight(flight_number="AF400", airline_id=4, origin_airport_id=4, destination_airport_id=1, departure_time=datetime(2023, 10, 8, 16, 0), arrival_time=datetime(2023, 10, 8, 8, 0))
+"test_data_rows":
+- "code": |-
+    airport1 = Airport(name="Los Angeles International", city="Los Angeles", country="USA", iata="LAX", icao="KLAX", latitude=33.942791, longitude=-118.410042, altitude=125, timezone="-8:00", dst="U", tz_database_timezone="America/Los_Angeles")
+  "test_data_row_variable": |-
+    airport1
+- "code": |-
+    airport2 = Airport(name="Heathrow", city="London", country="UK", iata="LHR", icao="EGLL", latitude=51.4706, longitude=-0.461941, altitude=83, timezone="0:00", dst="E", tz_database_timezone="Europe/London")
+  "test_data_row_variable": |-
+    airport2
+- "code": |-
+    airport3 = Airport(name="Tokyo International", city="Tokyo", country="Japan", iata="HND", icao="RJTT", latitude=35.549393, longitude=139.779839, altitude=13, timezone="9:00", dst="N", tz_database_timezone="Asia/Tokyo")
+  "test_data_row_variable": |-
+    airport3
+- "code": |-
+    airport4 = Airport(name="Charles de Gaulle", city="Paris", country="France", iata="CDG", icao="LFPG", latitude=49.0097, longitude=2.5479, altitude=392, timezone="1:00", dst="E", tz_database_timezone="Europe/Paris")
+  "test_data_row_variable": |-
+    airport4
+- "code": |-
+    airline1 = Airline(name="American Airlines", iata="AA", icao="AAL", country="USA")
+  "test_data_row_variable": |-
+    airline1
+- "code": |-
+    airline2 = Airline(name="British Airways", iata="BA", icao="BAW", country="UK")
+  "test_data_row_variable": |-
+    airline2
+- "code": |-
+    airline3 = Airline(name="Japan Airlines", iata="JL", icao="JAL", country="Japan")
+  "test_data_row_variable": |-
+    airline3
+- "code": |-
+    airline4 = Airline(name="Air France", iata="AF", icao="AFR", country="France")
+  "test_data_row_variable": |-
+    airline4
+- "code": |-
+    flight1 = Flight(flight_number="AA100", airline_id=1, origin_airport_id=1, destination_airport_id=2, departure_time=datetime(2023, 10, 5, 12, 0), arrival_time=datetime(2023, 10, 5, 22, 0))
+  "test_data_row_variable": |-
+    flight1
+- "code": |-
+    flight2 = Flight(flight_number="BA200", airline_id=2, origin_airport_id=2, destination_airport_id=3, departure_time=datetime(2023, 10, 6, 14, 0), arrival_time=datetime(2023, 10, 6, 20, 0))
+  "test_data_row_variable": |-
+    flight2
+- "code": |-
+    flight3 = Flight(flight_number="JL300", airline_id=3, origin_airport_id=3, destination_airport_id=4, departure_time=datetime(2023, 10, 7, 10, 0), arrival_time=datetime(2023, 10, 7, 18, 0))
+  "test_data_row_variable": |-
+    flight3
+- "code": |-
+    flight4 = Flight(flight_number="AF400", airline_id=4, origin_airport_id=4, destination_airport_id=1, departure_time=datetime(2023, 10, 8, 16, 0), arrival_time=datetime(2023, 10, 8, 8, 0))
+  "test_data_row_variable": |-
+    flight4
+"test_data_sqlite": |-
+  -- Testing data for Airport
+  INSERT INTO airport (name, city, country, iata, icao, latitude, longitude, altitude, timezone, dst, tz_database_timezone) VALUES ("Los Angeles International", "Los Angeles", "USA", "LAX", "KLAX", 33.942791, -118.410042, 125, "-8:00", "U", "America/Los_Angeles");
+  INSERT INTO airport (name, city, country, iata, icao, latitude, longitude, altitude, timezone, dst, tz_database_timezone) VALUES ("Heathrow", "London", "UK", "LHR", "EGLL", 51.4706, -0.461941, 83, "0:00", "E", "Europe/London");
+  INSERT INTO airport (name, city, country, iata, icao, latitude, longitude, altitude, timezone, dst, tz_database_timezone) VALUES ("Tokyo International", "Tokyo", "Japan", "HND", "RJTT", 35.549393, 139.779839, 13, "9:00", "N", "Asia/Tokyo");
+  INSERT INTO airport (name, city, country, iata, icao, latitude, longitude, altitude, timezone, dst, tz_database_timezone) VALUES ("Charles de Gaulle", "Paris", "France", "CDG", "LFPG", 49.0097, 2.5479, 392, "1:00", "E", "Europe/Paris");
+
+  -- Testing data for Airline
+  INSERT INTO airline (name, iata, icao, country) VALUES ("American Airlines", "AA", "AAL", "USA");
+  INSERT INTO airline (name, iata, icao, country) VALUES ("British Airways", "BA", "BAW", "UK");
+  INSERT INTO airline (name, iata, icao, country) VALUES ("Japan Airlines", "JL", "JAL", "Japan");
+  INSERT INTO airline (name, iata, icao, country) VALUES ("Air France", "AF", "AFR", "France");
+
+  -- Testing data for Flight
+  INSERT INTO flight (flight_number, airline_id, origin_airport_id, destination_airport_id, departure_time, arrival_time) VALUES ("AA100", 1, 1, 2, "2023-10-05 12:00:00", "2023-10-05 22:00:00");
+  INSERT INTO flight (flight_number, airline_id, origin_airport_id, destination_airport_id, departure_time, arrival_time) VALUES ("BA200", 2, 2, 3, "2023-10-06 14:00:00", "2023-10-06 20:00:00");
+  INSERT INTO flight (flight_number, airline_id, origin_airport_id, destination_airport_id, departure_time, arrival_time) VALUES ("JL300", 3, 3, 4, "2023-10-07 10:00:00", "2023-10-07 18:00:00");
+  INSERT INTO flight (flight_number, airline_id, origin_airport_id, destination_airport_id, departure_time, arrival_time) VALUES ("AF400", 4, 4, 1, "2023-10-08 16:00:00", "2023-10-08 08:00:00");

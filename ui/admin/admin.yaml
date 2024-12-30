@@ -1,0 +1,134 @@
+about:
+  date: December 30, 2024 14:22:25
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 3
+  number_tables: 3
+info_toggle_checked: true
+resources:
+  Airline:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: iata
+    - name: icao
+    - name: country
+    - name: id
+    description: This page shows different airlines with their respective IATA and
+      ICAO codes, and country.
+    info_list: This page shows different airlines with their respective IATA and ICAO
+      codes, and country.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - airline_id
+      name: FlightList
+      resource: Flight
+    type: Airline
+    user_key: name
+  Airport:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: city
+    - name: country
+    - name: iata
+    - name: icao
+    - name: latitude
+    - name: longitude
+    - name: altitude
+    - name: timezone
+    - name: dst
+    - name: tz_database_timezone
+    - name: id
+    description: This table contains information about airports including IATA and
+      ICAO codes, geographic data, and time zones.
+    info_list: This table contains information about airports including IATA and ICAO
+      codes, geographic data, and time zones.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - destination_airport_id
+      name: FlightList
+      resource: Flight
+    - direction: tomany
+      fks:
+      - origin_airport_id
+      name: originFlightList
+      resource: Flight
+    type: Airport
+    user_key: name
+  Flight:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: airline_id
+    - name: destination_airport_id
+    - name: origin_airport_id
+    - name: flight_number
+    - name: departure_time
+      type: DATETIME
+    - name: arrival_time
+      type: DATETIME
+    description: This table registers flight information including airlines, origin,
+      destination, and schedule.
+    info_list: This table registers flight information including airlines, origin,
+      destination, and schedule.
+    tab_groups:
+    - direction: toone
+      fks:
+      - airline_id
+      name: airline
+      resource: Airline
+    - direction: toone
+      fks:
+      - destination_airport_id
+      name: destination_airport
+      resource: Airport
+    - direction: toone
+      fks:
+      - origin_airport_id
+      name: origin_airport
+      resource: Airport
+    type: Flight
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

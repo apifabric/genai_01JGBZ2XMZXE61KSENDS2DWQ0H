@@ -1,0 +1,51 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+Airline: different airlines with their respective IATA and ICAO codes, and country.
+Airport: This table contains information about airports including IATA and ICAO codes, geographic data, and time zones.
+Flight: This table registers flight information including airlines, origin, destination, and schedule.
+'''
+}
+
+Table Airline {
+    id INTEGER [primary key]
+    name VARCHAR 
+    iata VARCHAR(2) 
+    icao VARCHAR(3) 
+    country VARCHAR 
+    }
+
+Table Airport {
+    id INTEGER [primary key]
+    name VARCHAR 
+    city VARCHAR 
+    country VARCHAR 
+    iata VARCHAR(3) 
+    icao VARCHAR(4) 
+    latitude FLOAT 
+    longitude FLOAT 
+    altitude INTEGER 
+    timezone VARCHAR 
+    dst VARCHAR 
+    tz_database_timezone VARCHAR 
+    }
+
+Table Flight {
+    id INTEGER [primary key]
+    flight_number VARCHAR 
+    airline_id INTEGER 
+    origin_airport_id INTEGER 
+    destination_airport_id INTEGER 
+    departure_time DATETIME 
+    arrival_time DATETIME 
+    }
+
+
+
+// Relationships
+    Ref: Flight.(airline_id) < Airline.(id)
+    Ref: Flight.(destination_airport_id) < Airport.(id)
+    Ref: Flight.(origin_airport_id) < Airport.(id)
